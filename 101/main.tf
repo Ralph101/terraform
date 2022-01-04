@@ -27,6 +27,9 @@ locals {
 resource "azurerm_resource_group" "rg" {
   name     = local.rg_name
   location = local.location
+  tags = {
+    environment = "Terraform 101"
+  }
 }
 
 resource "azurerm_storage_account" "stg" {
@@ -36,7 +39,7 @@ resource "azurerm_storage_account" "stg" {
   account_tier             = "Standard"
   account_replication_type = "GRS"
   tags = {
-    environment = "development"
+    environment = "Terraform 101"
     type        = "Storage"
   }
 }
@@ -47,7 +50,7 @@ resource "azurerm_virtual_network" "vnet" {
   location            = local.location
   resource_group_name = azurerm_resource_group.rg.name
   tags = {
-    environment = "development"
+    environment = "Terraform 101"
     type        = "Network"
   }
 }
@@ -66,7 +69,7 @@ resource "azurerm_public_ip" "pip" {
   allocation_method   = "Dynamic"
 
   tags = {
-    environment = "development"
+    environment = "Terraform 101"
     type        = "Network"
   }
 }
@@ -85,7 +88,7 @@ resource "azurerm_network_interface" "vnic" {
     public_ip_address_id          = azurerm_public_ip.pip.id
   }
   tags = {
-    environment = "development"
+    environment = "Terraform 101"
     type        = "Network"
   }
 }
@@ -113,5 +116,9 @@ resource "azurerm_windows_virtual_machine" "vm" {
     offer     = "WindowsServer"
     sku       = "2022-Datacenter"
     version   = "latest"
+  }
+  tags = {
+    environment = "Terraform 101"
+    type        = "Compute"
   }
 }
